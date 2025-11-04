@@ -12,21 +12,45 @@
         /* Custom font import and application */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         :root {
-            /* Vibrant Blue for primary elements */
-            --color-primary: #2563EB; /* Blue 600 */
-            /* ENHANCED: Vibrant Orange for accents */
-            --color-secondary: #F97316; /* Orange 500 */ 
+            /* NEW: Dark Background for Primary elements (Zinc 900) */
+            --color-primary: #171717; 
+            /* Accent: Vibrant Orange (Matching logo/theme) */
+            --color-secondary: #F97316; 
             font-family: 'Inter', sans-serif;
         }
         /* Custom Tailwind classes for theming */
         .text-primary { color: var(--color-primary); }
         .bg-primary { background-color: var(--color-primary); }
-        .hover-bg-primary:hover { background-color: #1d4ed8; } /* Blue 700 */
+        .hover-bg-primary:hover { background-color: #262626; } 
         .border-primary { border-color: var(--color-primary); }
         
         .text-secondary { color: var(--color-secondary); }
         .bg-secondary { background-color: var(--color-secondary); }
-        .hover-bg-secondary:hover { background-color: #ea580c; } /* Orange 600 */
+        .hover-bg-secondary:hover { background-color: #ea580c; } 
+
+        /* NEW: Hero Background CSS using the uploaded profile pic */
+        #home {
+            background-image: url('uploaded:profile pic.jpg-bfd958f3-8697-4136-a909-54095bb7ba53');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        /* Overlay to ensure white text readability */
+        #home::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.75); /* Strong dark overlay */
+            z-index: 0;
+        }
+        #home .container {
+            position: relative;
+            z-index: 10;
+        }
 
         /* Animation for engaging cards (more dynamic) */
         .event-card {
@@ -34,10 +58,13 @@
         }
         .event-card:hover {
             transform: translateY(-8px) rotate(1deg);
-            box-shadow: 0 15px 30px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 15px 30px rgba(249, 115, 22, 0.4); /* Orange Shadow */
         }
         
-        /* New: Navigation link animation */
+        /* Navigation link animation */
+        .nav-item {
+            transition: color 0.15s ease, transform 0.15s ease;
+        }
         .nav-item:hover {
             color: var(--color-secondary);
             transform: translateY(-2px);
@@ -46,26 +73,25 @@
         /* SPA Logic: Hide pages that are not active */
         .page-section {
             display: none;
-            min-height: calc(100vh - 80px); /* Ensure sections fill viewport on mobile */
+            min-height: calc(100vh - 80px); 
         }
         .page-section.active {
             display: block;
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-900 text-gray-100">
 
     <!-- Header & Navigation -->
-    <header class="bg-white shadow-lg sticky top-0 z-50">
+    <header class="bg-primary/95 shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <a href="#home" class="text-3xl font-extrabold text-primary flex items-center nav-link transition duration-150" data-target="home">
+            <a href="#home" class="text-3xl font-extrabold text-white flex items-center nav-link transition duration-150" data-target="home">
                 <i data-lucide="party-popper" class="w-7 h-7 mr-2 text-secondary"></i>
-                Bangladeshi Syndicate
+                <span class="text-secondary">Bangladeshi</span> Syndicate
             </a>
             
             <!-- Desktop Nav -->
             <nav class="hidden md:flex space-x-8 text-lg font-medium">
-                <!-- Added nav-item class for hover animation -->
                 <a href="#events" class="hover:text-secondary transition duration-150 nav-link nav-item" data-target="events">Events & Pricing</a>
                 <a href="#about" class="hover:text-secondary transition duration-150 nav-link nav-item" data-target="about">About Us</a>
                 <a href="#testimonials" class="hover:text-secondary transition duration-150 nav-link nav-item" data-target="testimonials">Syndicate Voices</a>
@@ -73,18 +99,17 @@
             </nav>
 
             <!-- Mobile Menu Button -->
-            <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100">
+            <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg text-gray-200 hover:bg-gray-800">
                 <i data-lucide="menu" class="w-6 h-6"></i>
             </button>
         </div>
 
         <!-- Mobile Menu (Hidden by default) -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+        <div id="mobile-menu" class="hidden md:hidden bg-primary/95 border-t border-gray-700">
             <nav class="px-2 pt-2 pb-4 space-y-1 sm:px-3">
-                <a href="#events" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 nav-link" data-target="events">Events & Pricing</a>
-                <a href="#about" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 nav-link" data-target="about">About Us</a>
-                <a href="#testimonials" class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 nav-link" data-target="testimonials">Syndicate Voices</a>
-                <!-- Updated CTA text color to white for better contrast with new orange -->
+                <a href="#events" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:bg-gray-800 nav-link" data-target="events">Events & Pricing</a>
+                <a href="#about" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:bg-gray-800 nav-link" data-target="about">About Us</a>
+                <a href="#testimonials" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:bg-gray-800 nav-link" data-target="testimonials">Syndicate Voices</a>
                 <a href="#contact" class="block w-full text-center mt-4 py-3 px-4 bg-secondary text-white font-bold rounded-lg shadow-lg hover-bg-secondary transition duration-150 nav-link" data-target="contact">Book Now!</a>
             </nav>
         </div>
@@ -94,25 +119,23 @@
     <main id="main-content">
         
         <!-- 1. HOME PAGE (Hero + Syndicate Intro) -->
-        <section id="home" data-page="home" class="page-section bg-primary text-white pt-16 pb-24 active relative overflow-hidden">
-            <!-- Background pattern for modern feel -->
-            <div class="absolute inset-0 opacity-10 bg-[url('https://placehold.co/1000x1000/ffffff/ffffff/png?text=')]"></div>
-
+        <section id="home" data-page="home" class="page-section text-white pt-16 pb-24 active relative overflow-hidden">
+            <!-- Background is set via CSS style block (using profile pic.jpg) -->
+            
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-                <p class="text-3xl font-bold mb-4 flex items-center justify-center">
+                <p class="text-3xl font-bold mb-4 flex items-center justify-center drop-shadow-lg">
                     Australian Bangladeshi Syndicate <span class="ml-2 text-secondary">🇦🇺🇧🇩</span>
                 </p>
                 
-                <h1 class="text-5xl sm:text-7xl font-black leading-tight mb-6 tracking-tight">
+                <h1 class="text-5xl sm:text-7xl font-black leading-tight mb-6 tracking-tight drop-shadow-lg">
                     Melbourne's Hottest Community Events.
                 </h1>
 
-                <p class="text-xl sm:text-2xl mb-10 opacity-90 max-w-4xl mx-auto font-light">
+                <p class="text-xl sm:text-2xl mb-10 opacity-90 max-w-4xl mx-auto font-light drop-shadow-lg">
                     Melbourne’s leading Bangladeshi community circle, dedicated to uniting people through culture, events, and shared experiences while fostering **support, friendship, and growth.**
                 </p>
 
                 <div class="space-y-4 sm:space-y-0 sm:space-x-6">
-                    <!-- Updated CTA text color to white for better contrast with new orange -->
                     <a href="#events" class="inline-block py-3 px-8 text-lg font-bold bg-secondary text-white rounded-full shadow-xl hover-bg-secondary hover:scale-105 transition duration-300 transform nav-link" data-target="events">
                         See Our Upcoming Events
                     </a>
@@ -120,25 +143,30 @@
                         Get In Touch
                     </a>
                 </div>
+                <!-- NEW: Added image under the CTA buttons -->
+                <div class="mt-12 max-w-4xl mx-auto rounded-xl shadow-2xl overflow-hidden border-4 border-secondary/50">
+                    <img src="images/profile pic.jpg" alt="Crowd cheering at a vibrant event with confetti" class="w-full h-auto object-cover opacity-90">
+                </div>
+                <!-- END NEW IMAGE -->
             </div>
         </section>
         
-        <!-- Community Info Section (Always Open, Location) -->
-        <section class="py-8 bg-white shadow-md">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-around items-center text-center space-y-4 md:space-y-0 text-lg font-semibold">
-                <div class="flex items-center text-primary">
+        <!-- Community Info Section (Now Darker) -->
+        <section class="py-8 bg-gray-800 shadow-md">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-around items-center text-center space-y-4 md:space-y-0 text-lg font-semibold text-gray-200">
+                <div class="flex items-center">
                     <i data-lucide="map-pin" class="w-6 h-6 mr-2 text-secondary"></i>
                     Melbourne, VIC, Australia
                 </div>
-                <div class="flex items-center text-primary">
+                <div class="flex items-center">
                     <i data-lucide="clock" class="w-6 h-6 mr-2 text-secondary"></i>
                     Always Open (Community Group)
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="https://facebook.com/BangladeshiSyndicate" target="_blank" class="text-primary hover:text-secondary transition duration-150 nav-item">
+                    <a href="https://facebook.com/BangladeshiSyndicate" target="_blank" class="hover:text-secondary transition duration-150 nav-item">
                          <i data-lucide="facebook" class="w-6 h-6"></i>
                     </a>
-                    <a href="https://instagram.com/bangladeshi_syndicate" target="_blank" class="text-primary hover:text-secondary transition duration-150 nav-item">
+                    <a href="https://instagram.com/bangladeshi_syndicate" target="_blank" class="hover:text-secondary transition duration-150 nav-item">
                         <i data-lucide="instagram" class="w-6 h-6"></i>
                     </a>
                 </div>
@@ -146,28 +174,45 @@
         </section>
 
         <!-- 2. EVENTS & PRICING PAGE -->
-        <section id="events" data-page="events" class="page-section py-16 lg:py-24 bg-gray-50">
+        <section id="events" data-page="events" class="page-section py-16 lg:py-24 bg-gray-900">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-4xl font-bold text-center mb-4 text-gray-900">Our Signature Event Packages</h2>
-                <p class="text-center text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
+                <h2 class="text-4xl font-bold text-center mb-4 text-white">Our Signature Event Packages</h2>
+                <p class="text-center text-xl text-gray-400 mb-12 max-w-3xl mx-auto">
                     Whether it’s a small gathering or a large cultural festival, we bring the best of Bangladeshi culture to Melbourne.
                 </p>
 
+                <!-- Featured Event Posters Section (Using 8thNov.jpg & Boshonter Chuijhal.jpg) -->
+                <div class="mb-16">
+                    <h3 class="text-3xl font-bold text-center text-secondary mb-8">Featured Events</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="rounded-xl shadow-2xl overflow-hidden border-4 border-secondary/50">
+                            <a href="https://www.eventbrite.com/e/boshonter-chuijhal-placeholder" target="_blank">
+                                <img src="images/Boshonter Chuijhal.jpg" alt="Boshonter Chuijhal 2025 Event Poster" class="w-full h-auto object-cover transition duration-300 hover:scale-[1.03]">
+                            </a>
+                        </div>
+                        <div class="rounded-xl shadow-2xl overflow-hidden border-4 border-primary/50">
+                            <a href="https://www.eventbrite.com/e/8th-november-event-placeholder" target="_blank">
+                                <img src="images/8thNov.jpg" alt="8th November 2025 Event Poster" class="w-full h-auto object-cover transition duration-300 hover:scale-[1.03]">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <!-- Event Package 1: Bronze -->
-                    <div class="event-card p-8 bg-white rounded-2xl shadow-xl border-t-8 border-primary/20 flex flex-col justify-between">
+                    <div class="event-card p-8 bg-gray-800 rounded-2xl shadow-xl border-t-8 border-primary/20 flex flex-col justify-between">
                         <div>
-                            <span class="text-sm font-bold text-primary uppercase tracking-wider">Starting At</span>
-                            <h3 class="text-4xl font-black mb-4 flex items-baseline">
+                            <span class="text-sm font-bold text-secondary uppercase tracking-wider">Starting At</span>
+                            <h3 class="text-4xl font-black mb-4 flex items-baseline text-white">
                                 <span class="text-xl mr-1">$</span>150
                             </h3>
-                            <h4 class="text-2xl font-bold mb-4 text-primary">The Adda (Social Gathering)</h4>
-                            <p class="text-gray-600 mb-6">Perfect for birthdays, small meetups, or community networking sessions.</p>
-                            <ul class="space-y-3 text-sm text-gray-700">
+                            <h4 class="text-2xl font-bold mb-4 text-secondary">The Adda (Social Gathering)</h4>
+                            <p class="text-gray-400 mb-6">Perfect for birthdays, small meetups, or community networking sessions.</p>
+                            <ul class="space-y-3 text-sm text-gray-300">
                                 <li class="flex items-center"><i data-lucide="check-circle" class="w-5 h-5 mr-2 text-secondary"></i> Venue Consultation</li>
                                 <li class="flex items-center"><i data-lucide="check-circle" class="w-5 h-5 mr-2 text-secondary"></i> Basic Sound & Lighting</li>
                                 <li class="flex items-center"><i data-lucide="check-circle" class="w-5 h-5 mr-2 text-secondary"></i> Ticket/RSVP Management (100 guests max)</li>
-                                <li class="flex items-center text-gray-400"><i data-lucide="x-circle" class="w-5 h-5 mr-2"></i> Cultural Performance Booking</li>
+                                <li class="flex items-center text-gray-500"><i data-lucide="x-circle" class="w-5 h-5 mr-2"></i> Cultural Performance Booking</li>
                             </ul>
                         </div>
                         <a href="#contact" data-target="contact" class="nav-link mt-8 w-full block text-center py-3 bg-primary text-white font-bold rounded-lg hover-bg-primary transition duration-300 shadow-md">
@@ -176,16 +221,16 @@
                     </div>
 
                     <!-- Event Package 2: Silver (Recommended) -->
-                    <div class="event-card p-8 bg-white rounded-2xl shadow-2xl border-t-8 border-secondary flex flex-col justify-between relative ring-4 ring-secondary/50">
+                    <div class="event-card p-8 bg-gray-800 rounded-2xl shadow-2xl border-t-8 border-secondary flex flex-col justify-between relative ring-4 ring-secondary/50">
                         <div class="absolute top-0 right-0 bg-secondary text-white text-xs font-bold px-3 py-1 rounded-bl-lg">Most Popular!</div>
                         <div>
-                            <span class="text-sm font-bold text-primary uppercase tracking-wider">Starting At</span>
-                            <h3 class="text-5xl font-black mb-4 flex items-baseline">
+                            <span class="text-sm font-bold text-secondary uppercase tracking-wider">Starting At</span>
+                            <h3 class="text-5xl font-black mb-4 flex items-baseline text-white">
                                 <span class="text-xl mr-1">$</span>499
                             </h3>
-                            <h4 class="text-2xl font-bold mb-4 text-primary">The Celebration (Mid-Tier Function)</h4>
-                            <p class="text-gray-600 mb-6">Ideal for Eid parties, Pitha Utshob, and medium-sized university cultural nights.</p>
-                            <ul class="space-y-3 text-sm text-gray-700">
+                            <h4 class="text-2xl font-bold mb-4 text-secondary">The Celebration (Mid-Tier Function)</h4>
+                            <p class="text-gray-400 mb-6">Ideal for Eid parties, Pitha Utshob, and medium-sized university cultural nights.</p>
+                            <ul class="space-y-3 text-sm text-gray-300">
                                 <li class="flex items-center"><i data-lucide="check-circle" class="w-5 h-5 mr-2 text-secondary"></i> **Full Logistics Management**</li>
                                 <li class="flex items-center"><i data-lucide="check-circle" class="w-5 h-5 mr-2 text-secondary"></i> Professional AV & Tech Support</li>
                                 <li class="flex items-center"><i data-lucide="check-circle" class="w-5 h-5 mr-2 text-secondary"></i> Vendor Coordination (Catering/Decor)</li>
@@ -198,15 +243,15 @@
                     </div>
 
                     <!-- Event Package 3: Gold -->
-                    <div class="event-card p-8 bg-white rounded-2xl shadow-xl border-t-8 border-primary/20 flex flex-col justify-between">
+                    <div class="event-card p-8 bg-gray-800 rounded-2xl shadow-xl border-t-8 border-primary/20 flex flex-col justify-between">
                         <div>
-                            <span class="text-sm font-bold text-primary uppercase tracking-wider">Custom Quote</span>
-                            <h3 class="text-4xl font-black mb-4 flex items-baseline">
+                            <span class="text-sm font-bold text-secondary uppercase tracking-wider">Custom Quote</span>
+                            <h3 class="text-4xl font-black mb-4 flex items-baseline text-white">
                                 <span class="text-xl mr-1">$</span>TBD
                             </h3>
-                            <h4 class="text-2xl font-bold mb-4 text-primary">The Mega Festival (Large Scale)</h4>
-                            <p class="text-gray-600 mb-6">End-to-end management for Boishakhi Mela, community concerts, or major cultural events.</p>
-                            <ul class="space-y-3 text-sm text-gray-700">
+                            <h4 class="text-2xl font-bold mb-4 text-secondary">The Mega Festival (Large Scale)</h4>
+                            <p class="text-gray-400 mb-6">End-to-end management for Boishakhi Mela, community concerts, or major cultural events.</p>
+                            <ul class="space-y-3 text-sm text-gray-300">
                                 <li class="flex items-center"><i data-lucide="check-circle" class="w-5 h-5 mr-2 text-secondary"></i> **Full Permits & Legal Support**</li>
                                 <li class="flex items-center"><i data-lucide="check-circle" class="w-5 h-5 mr-2 text-secondary"></i> National Artist & Performer Booking</li>
                                 <li class="flex items-center"><i data-lucide="check-circle" class="w-5 h-5 mr-2 text-secondary"></i> Comprehensive Marketing & PR</li>
@@ -220,9 +265,9 @@
                 </div>
 
                 <!-- NEW: Eventbrite Integration Section -->
-                <div class="text-center mt-16 bg-white p-6 rounded-xl shadow-lg border-2 border-secondary/50">
-                    <h3 class="text-3xl font-extrabold text-gray-900 mb-4">Ready for the next big event?</h3>
-                    <p class="text-xl text-gray-600 mb-6">Secure your tickets instantly through our official ticketing partner.</p>
+                <div class="text-center mt-16 bg-gray-800 p-6 rounded-xl shadow-lg border-2 border-secondary/50">
+                    <h3 class="text-3xl font-extrabold text-white mb-4">Ready for the next big event?</h3>
+                    <p class="text-xl text-gray-400 mb-6">Secure your tickets instantly through our official ticketing partner.</p>
                     <a href="https://www.eventbrite.com/e/bangladeshi-syndicate-events-placeholder" target="_blank" class="inline-block py-4 px-12 text-xl font-black bg-secondary text-white rounded-full shadow-2xl hover-bg-secondary hover:scale-105 transition duration-300 transform">
                         <i data-lucide="ticket" class="w-6 h-6 inline-block mr-2"></i>
                         View All Events on Eventbrite
@@ -235,7 +280,7 @@
         <!-- 3. ABOUT US PAGE -->
         <section id="about" data-page="about" class="page-section py-16 lg:py-24 bg-primary text-white">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-4xl font-bold text-center mb-12">Who We Are: The Syndicate Core</h2>
+                <h2 class="text-4xl font-bold text-center mb-12 text-white">Who We Are: The Syndicate Core</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                     <div>
                         <p class="text-lg mb-6 leading-relaxed">
@@ -250,72 +295,73 @@
                         </div>
                     </div>
                     <div class="rounded-xl shadow-2xl overflow-hidden">
-                         <img src="https://placehold.co/600x400/2563EB/F97316?text=Community+Event+Vibe" alt="Image of a dynamic community event" class="w-full h-auto object-cover">
+                         <!-- Replaced placeholder with uploaded image 1.jpg -->
+                         <img src="images/1.jpg" alt="Image of a dynamic community event with confetti" class="w-full h-auto object-cover">
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- 4. TESTIMONIALS PAGE -->
-        <section id="testimonials" data-page="testimonials" class="page-section py-16 lg:py-24 bg-white">
+        <section id="testimonials" data-page="testimonials" class="page-section py-16 lg:py-24 bg-gray-800">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-4xl font-bold text-center mb-4 text-gray-900">Syndicate Voices: What Our Community Says</h2>
-                <p class="text-center text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
+                <h2 class="text-4xl font-bold text-center mb-4 text-white">Syndicate Voices: What Our Community Says</h2>
+                <p class="text-center text-xl text-gray-400 mb-12 max-w-3xl mx-auto">
                     Real feedback from the people who make our events successful.
                 </p>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <!-- Testimonial 1: Festival Attendee -->
-                    <div class="p-6 bg-gray-50 rounded-xl shadow-lg border-t-4 border-secondary">
+                    <div class="p-6 bg-gray-900 rounded-xl shadow-lg border-t-4 border-secondary">
                         <div class="flex text-secondary mb-3"><i data-lucide="star" class="w-5 h-5 fill-secondary mr-1"></i><i data-lucide="star" class="w-5 h-5 fill-secondary mr-1"></i><i data-lucide="star" class="w-5 h-5 fill-secondary mr-1"></i><i data-lucide="star" class="w-5 h-5 fill-secondary mr-1"></i><i data-lucide="star" class="w-5 h-5 fill-secondary"></i></div>
-                        <p class="italic text-gray-700 mb-4">
+                        <p class="italic text-gray-300 mb-4">
                             "I've been to every Boishakhi Mela they've organized. The energy is always incredible, and the organization is flawless. Finally, events that feel genuinely modern and welcoming!"
                         </p>
-                        <p class="font-semibold text-primary">- Rifat K., (24), University Student</p>
+                        <p class="font-semibold text-white">- Rifat K., (24), University Student</p>
                     </div>
 
                     <!-- Testimonial 2: Event Collaborator -->
-                    <div class="p-6 bg-gray-50 rounded-xl shadow-lg border-t-4 border-primary">
+                    <div class="p-6 bg-gray-900 rounded-xl shadow-lg border-t-4 border-primary">
                         <div class="flex text-secondary mb-3"><i data-lucide="star" class="w-5 h-5 fill-secondary mr-1"></i><i data-lucide="star" class="w-5 h-5 fill-secondary mr-1"></i><i data-lucide="star" class="w-5 h-5 fill-secondary mr-1"></i><i data-lucide="star" class="w-5 h-5 fill-secondary mr-1"></i><i data-lucide="star" class="w-5 h-5 fill-secondary"></i></div>
-                        <p class="italic text-gray-700 mb-4">
+                        <p class="italic text-gray-300 mb-4">
                             "We collaborated on a cultural night, and the Syndicate team handled all the logistics, vendor coordination, and marketing perfectly. They made the entire process easy and professional."
                         </p>
-                        <p class="font-semibold text-primary">- Sami A., (31), Local Business Owner</p>
+                        <p class="font-semibold text-white">- Sami A., (31), Local Business Owner</p>
                     </div>
 
                     <!-- Testimonial 3: New Community Member -->
-                    <div class="p-6 bg-gray-50 rounded-xl shadow-lg border-t-4 border-secondary">
+                    <div class="p-6 bg-gray-900 rounded-xl shadow-lg border-t-4 border-secondary">
                         <div class="flex text-secondary mb-3"><i data-lucide="star" class="w-5 h-5 fill-secondary mr-1"></i><i data-lucide="star" class="w-5 h-5 fill-secondary mr-1"></i><i data-lucide="star" class="w-5 h-5 fill-secondary mr-1"></i><i data-lucide="star" class="w-5 h-5 fill-secondary mr-1"></i><i data-lucide="star" class="w-5 h-5 fill-secondary"></i></div>
-                        <p class="italic text-gray-700 mb-4">
+                        <p class="italic text-gray-300 mb-4">
                             "Moving to Melbourne was tough, but the Syndicate's regular Adda sessions helped me make friends instantly. It's truly a supportive circle. Highly recommend joining their events!"
                         </p>
-                        <p class="font-semibold text-primary">- Anika H., (27), New Arrival</p>
+                        <p class="font-semibold text-white">- Anika H., (27), New Arrival</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- 5. CONTACT PAGE (Booking Form) -->
-        <section id="contact" data-page="contact" class="page-section py-16 lg:py-24 bg-primary/5 border-t border-primary/10">
+        <section id="contact" data-page="contact" class="page-section py-16 lg:py-24 bg-gray-900 border-t border-gray-700">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-                <h2 class="text-4xl font-bold text-center mb-4 text-gray-900">Ready to Host Your Next Event?</h2>
-                <p class="text-center text-xl text-gray-600 mb-10">
+                <h2 class="text-4xl font-bold text-center mb-4 text-white">Ready to Host Your Next Event?</h2>
+                <p class="text-center text-xl text-gray-400 mb-10">
                     Tell us about your event idea and we'll start planning the perfect celebration.
                 </p>
 
-                <div class="bg-white p-6 sm:p-10 rounded-xl shadow-2xl border border-secondary/20">
+                <div class="bg-gray-800 p-6 sm:p-10 rounded-xl shadow-2xl border border-secondary/20">
                     <form id="contact-form">
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                             <!-- Name -->
                             <div>
-                                <label for="cname" class="block text-lg font-semibold mb-2 text-gray-700">Full Name</label>
-                                <input type="text" id="cname" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary transition duration-150" placeholder="Your Name">
+                                <label for="cname" class="block text-lg font-semibold mb-2 text-gray-300">Full Name</label>
+                                <input type="text" id="cname" required class="w-full p-3 border border-gray-600 rounded-lg focus:ring-secondary focus:border-secondary transition duration-150 bg-gray-700 text-white" placeholder="Your Name">
                             </div>
                             <!-- Email -->
                             <div>
-                                <label for="cemail" class="block text-lg font-semibold mb-2 text-gray-700">Email Address</label>
-                                <input type="email" id="cemail" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary transition duration-150" placeholder="your@email.com">
+                                <label for="cemail" class="block text-lg font-semibold mb-2 text-gray-300">Email Address</label>
+                                <input type="email" id="cemail" required class="w-full p-3 border border-gray-600 rounded-lg focus:ring-secondary focus:border-secondary transition duration-150 bg-gray-700 text-white" placeholder="your@email.com">
                             </div>
                         </div>
 
@@ -323,8 +369,8 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                             <!-- Event Type -->
                             <div>
-                                <label for="etype" class="block text-lg font-semibold mb-2 text-gray-700">Type of Event</label>
-                                <select id="etype" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary transition duration-150 bg-white">
+                                <label for="etype" class="block text-lg font-semibold mb-2 text-gray-300">Type of Event</label>
+                                <select id="etype" required class="w-full p-3 border border-gray-600 rounded-lg focus:ring-secondary focus:border-secondary transition duration-150 bg-gray-700 text-white">
                                     <option value="">Select event type...</option>
                                     <option value="birthday">Birthday Party / Social</option>
                                     <option value="cultural">Cultural Program (e.g., Pohela Boishakh)</option>
@@ -335,15 +381,15 @@
                             </div>
                              <!-- Guest Count -->
                             <div>
-                                <label for="guests" class="block text-lg font-semibold mb-2 text-gray-700">Estimated Guest Count</label>
-                                <input type="number" id="guests" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary transition duration-150" placeholder="e.g., 50">
+                                <label for="guests" class="block text-lg font-semibold mb-2 text-gray-300">Estimated Guest Count</label>
+                                <input type="number" id="guests" required class="w-full p-3 border border-gray-600 rounded-lg focus:ring-secondary focus:border-secondary transition duration-150 bg-gray-700 text-white" placeholder="e.g., 50">
                             </div>
                         </div>
 
                         <!-- Message/Details -->
                         <div class="mb-8">
-                            <label for="details" class="block text-lg font-semibold mb-2 text-gray-700">Event Details & Date Preference</label>
-                            <textarea id="details" rows="4" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary transition duration-150" placeholder="Tell us the date, location preference, and any specific cultural needs you have."></textarea>
+                            <label for="details" class="block text-lg font-semibold mb-2 text-gray-300">Event Details & Date Preference</label>
+                            <textarea id="details" rows="4" required class="w-full p-3 border border-gray-600 rounded-lg focus:ring-secondary focus:border-secondary transition duration-150 bg-gray-700 text-white" placeholder="Tell us the date, location preference, and any specific cultural needs you have."></textarea>
                         </div>
                         
                         <!-- Final CTA -->
@@ -361,7 +407,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
+    <footer class="bg-gray-900 text-white py-12">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <!-- Company Info -->
